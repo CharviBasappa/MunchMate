@@ -16,6 +16,7 @@ export default function Order() {
 
   if (!loading) {
     selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
+    price = intl.format(selectedPizza.sizes[pizzaSize]);
   }
 
   useEffect(() => {
@@ -23,8 +24,6 @@ export default function Order() {
   }, []);
 
   async function fetchPizzaTypes() {
-    await new Promise((resolve) => setTimeout(resolve, 3000)); // remove this later, just to show you the loading state
-
     const pizzasRes = await fetch("/api/pizzas");
     const pizzasJson = await pizzasRes.json();
     setPizzaTypes(pizzasJson);
@@ -91,12 +90,16 @@ export default function Order() {
           <button type="submit">Add to Cart</button>
         </div>
         <div className="order-pizza">
-          <Pizza
-            name={selectedPizza.name}
-            description={selectedPizza.description}
-            image={selectedPizza.image}
-          />
-          <p>$13.37</p>
+          {loading ? (
+            <h1>Loading Pizza....</h1>
+          ) : (
+            <Pizza
+              name={selectedPizza.name}
+              description={selectedPizza.description}
+              image={selectedPizza.image}
+            />
+          )}
+          <p>{price}</p>
         </div>
       </form>
     </div>
