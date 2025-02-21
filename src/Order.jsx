@@ -3,7 +3,8 @@ import Pizza from "./Pizza";
 
 export default function Order() {
   const [pizzaType, setPizzaType] = useState("pepperoni");
-  //   const [pizzaSize, setPizzaSize] = useState("medium");
+  const [pizzaSize, setPizzaSize] = useState("M");
+
   return (
     <div className="order">
       <h2>Create Order</h2>
@@ -27,6 +28,7 @@ export default function Order() {
               <span>
                 <input
                   checked={pizzaSize === "S"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
                   type="radio"
                   name="pizza-size"
                   value="S"
@@ -37,6 +39,7 @@ export default function Order() {
               <span>
                 <input
                   checked={pizzaSize === "M"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
                   type="radio"
                   name="pizza-size"
                   value="M"
@@ -47,6 +50,7 @@ export default function Order() {
               <span>
                 <input
                   checked={pizzaSize === "L"}
+                  onChange={(e) => setPizzaSize(e.target.value)}
                   type="radio"
                   name="pizza-size"
                   value="L"
