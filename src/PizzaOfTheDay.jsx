@@ -21,7 +21,7 @@ const PizzaOfTheDay = () => {
         </p>
       </div>
       <img
-        classname="pizza-of-the-day-image"
+        className="pizza-of-the-day-image"
         // src={pizzaOfTheDay.image}
         src={`http://localhost:3000${pizzaOfTheDay.image}`}
         alt={pizzaOfTheDay.name}
