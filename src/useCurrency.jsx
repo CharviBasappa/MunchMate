@@ -1,5 +1,5 @@
 const intl = new Intl.NumberFormat("en-US", {
-  style: "curremcy",
+  style: "currency",
   currency: "USD",
 });
 

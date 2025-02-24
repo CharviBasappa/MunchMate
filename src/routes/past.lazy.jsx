@@ -2,14 +2,9 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import getPastOrders from "../api/getPastOrders";
-// import getPastOrder from "../api/getPastOrder";
-// import Modal from "../Modal";
-// import { priceConverter } from "../useCurrency";
-
-// const intl = new Intl.NumberFormat("en-US", {
-//   style: "curremcy",
-//   currency: "USD",
-// });
+import getPastOrder from "../api/getPastOrder";
+import Modal from "../Modal";
+import useCurrency, { priceConverter } from "../useCurrency";
 
 export const Route = createLazyFileRoute("/past")({
   component: PastOrdersRoute,
@@ -17,20 +12,20 @@ export const Route = createLazyFileRoute("/past")({
 
 function PastOrdersRoute() {
   const [page, setPage] = useState(1);
-  //   const [focusedOrder, setFocusedOrder] = useState();
-  //   const price = useCurrency();
+  const [focusedOrder, setFocusedOrder] = useState();
+  const price = useCurrency();
   const { isLoading, data } = useQuery({
     queryKey: ["past-orders", page],
     queryFn: () => getPastOrders(page),
     staleTime: 30000,
   });
 
-  //   const { isLoading: isloadingPastOrder, data: pastOrderData } = useQuery({
-  //     queryKey: ["past-order", focusedOrder],
-  //     queryFn: () => getPastOrder(focusedOrder),
-  //     staleTime: 86400000,
-  //     enabled: !!focusedOrder,
-  //   });
+  const { isLoading: isLoadingPastOrder, data: pastOrderData } = useQuery({
+    queryKey: ["past-order", focusedOrder],
+    queryFn: () => getPastOrder(focusedOrder),
+    staleTime: 86400000,
+    enabled: !!focusedOrder,
+  });
 
   if (isLoading) {
     return (
@@ -67,6 +62,42 @@ function PastOrdersRoute() {
           Next
         </button>
       </div>
+      {focusedOrder ? (
+        <Modal>
+          <h2>Order #{focusedOrder}</h2>
+          {!isLoadingPastOrder ? (
+            <table>
+              <thead>
+                <tr>
+                  <td>Image</td>
+                  <td>Name</td>
+                  <td>Size</td>
+                  <td>Quantity</td>
+                  <td>Price</td>
+                  <td>Total</td>
+                </tr>
+              </thead>
+              <tbody>
+                {pastOrderData.orderItems.map((pizza) => (
+                  <tr key={`${pizza.pizzaTypeId}_${pizza.size}`}>
+                    <td>
+                      <img src={pizza.image} alt={pizza.name} />
+                    </td>
+                    <td>{pizza.name}</td>
+                    <td>{pizza.size}</td>
+                    <td>{pizza.quantity}</td>
+                    <td>{priceConverter(pizza.price)}</td>
+                    <td>{priceConverter(pizza.total)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>Loading …</p>
+          )}
+          <button onClick={() => setFocusedOrder()}>Close</button>
+        </Modal>
+      ) : null}
     </div>
   );
 }
