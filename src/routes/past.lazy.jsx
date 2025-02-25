@@ -85,7 +85,8 @@ function PastOrdersRoute() {
                 {pastOrderData.orderItems.map((pizza) => (
                   <tr key={`${pizza.pizzaTypeId}_${pizza.size}`}>
                     <td>
-                      <img src={pizza.image} alt={pizza.name} />
+                      {/* <img src={pizza.image} alt={pizza.name} /> */}
+                      <img src={`http://localhost:3000${pizza.image}`}></img>
                     </td>
                     <td>{pizza.name}</td>
                     <td>{pizza.size}</td>

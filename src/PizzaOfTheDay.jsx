@@ -20,12 +20,14 @@ const PizzaOfTheDay = () => {
           From: {intl.format(pizzaOfTheDay.sizes.s)}
         </p>
       </div>
-      <img
-        className="pizza-of-the-day-image"
-        // src={pizzaOfTheDay.image}
-        src={`http://localhost:3000${pizzaOfTheDay.image}`}
-        alt={pizzaOfTheDay.name}
-      />
+      <div className="pizza-of-the-day-image-container">
+        <img
+          className="pizza-of-the-day-image"
+          // src={pizzaOfTheDay.image}
+          src={`http://localhost:3000${pizzaOfTheDay.image}`}
+          alt={pizzaOfTheDay.name}
+        />
+      </div>
     </div>
   );
 };

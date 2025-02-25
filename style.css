@@ -255,6 +255,13 @@ button:disabled {
   text-align: center;
 }
 
+.pizza-of-the-day-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .pizza-of-the-day-image {
   max-width: 200px;
   border-radius: 5px;
