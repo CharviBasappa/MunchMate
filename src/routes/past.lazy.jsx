@@ -20,7 +20,6 @@ function ErrorBoundaryWrappedPastOrderRoutes(props) {
 }
 
 function PastOrdersRoute() {
-  throw new Error("Whatttt");
   const [page, setPage] = useState(1);
   const [focusedOrder, setFocusedOrder] = useState();
   const price = useCurrency();

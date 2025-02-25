@@ -18,5 +18,5 @@ const App = () => {
 };
 
 const container = document.getElementById("root");
-const Root = createRoot(container);
-Root.render(<App />);
+const root = createRoot(container);
+root.render(<App />);
