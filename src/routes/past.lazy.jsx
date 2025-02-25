@@ -5,12 +5,22 @@ import getPastOrders from "../api/getPastOrders";
 import getPastOrder from "../api/getPastOrder";
 import Modal from "../Modal";
 import useCurrency, { priceConverter } from "../useCurrency";
+import ErrorBoundary from "../ErrorBoundary";
 
 export const Route = createLazyFileRoute("/past")({
-  component: PastOrdersRoute,
+  component: ErrorBoundaryWrappedPastOrderRoutes,
 });
 
+function ErrorBoundaryWrappedPastOrderRoutes(props) {
+  return (
+    <ErrorBoundary>
+      <PastOrdersRoute {...props} />
+    </ErrorBoundary>
+  );
+}
+
 function PastOrdersRoute() {
+  throw new Error("Whatttt");
   const [page, setPage] = useState(1);
   const [focusedOrder, setFocusedOrder] = useState();
   const price = useCurrency();
